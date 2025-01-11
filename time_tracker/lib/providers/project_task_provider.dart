@@ -27,20 +27,25 @@ class TimeEntryProvider with ChangeNotifier {
   ];
 
 
-//   // List of Project
-//   List<Project> _entries = [];
-//
+//   // List of Projects
+  List<Project> _projects = [
+
+    Project(id: '1', name: 'Alpha'),
+    Project(id: '2', name: 'Beta'),
+    Project(id: '3', name: 'Gamma'),
+
+  ];
+
 
   // Getters
   List<TimeEntry> get entries => _entries;
+  List<Task> get tasks => _tasks;
+  List<Project> get projects => _projects;
+
 //   List<Task> get entries => _entries;
 //   List<Project> get entries => _entries;
-//
-
 //   List<TimeEntry> get time_entries => _time_entries;
-  List<Task> get tasks => _tasks;
-//   List<Project> get projects => _projects;
-//
+
 
 
   TimeEntryProvider(this.storage) {
@@ -105,6 +110,21 @@ class TimeEntryProvider with ChangeNotifier {
   // Delete a task
   void deleteTask(String id) {
     _tasks.removeWhere((task) => task.id == id);
+    notifyListeners();
+  }
+
+
+  // Add a project
+  void addProject(Project project) {
+    if (!_projects.any((p) => p.name == project.name)) {
+      _projects.add(project);
+      notifyListeners();
+    }
+  }
+
+  // Delete a task
+  void deleteTask(String id) {
+    _projects.removeWhere((project) => project.id == id);
     notifyListeners();
   }
 
