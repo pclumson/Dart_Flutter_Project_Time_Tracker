@@ -16,8 +16,17 @@ class TimeEntryProvider with ChangeNotifier {
 
   // List of TimeEntry
   List<TimeEntry> _entries = [];
+
   // List of Task
-//   List<Task> _entries = [];
+  List<Task> _tasks = [
+
+    Task(id: '1', name: 'A'),
+    Task(id: '2', name: 'B'),
+    Task(id: '3', name: 'C'),
+
+  ];
+
+
 //   // List of Project
 //   List<Project> _entries = [];
 //
@@ -29,7 +38,7 @@ class TimeEntryProvider with ChangeNotifier {
 //
 
 //   List<TimeEntry> get time_entries => _time_entries;
-//   List<Task> get tasks => _tasks;
+  List<Task> get tasks => _tasks;
 //   List<Project> get projects => _projects;
 //
 
@@ -83,4 +92,21 @@ class TimeEntryProvider with ChangeNotifier {
     _saveTimeEntryToStorage();
     notifyListeners();
   }
+
+
+  // Add a task
+  void addTask(Task task) {
+    if (!_tasks.any((t) => t.name == task.name)) {
+      _tasks.add(task);
+      notifyListeners();
+    }
+  }
+
+  // Delete a task
+  void deleteTask(String id) {
+    _tasks.removeWhere((task) => task.id == id);
+    notifyListeners();
+  }
+
+
 }
